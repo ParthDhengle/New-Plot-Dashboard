@@ -3,18 +3,19 @@
 // src/components/charts/LineChart.jsx
 import { useEffect, useRef } from "react"
 import Plot from "react-plotly.js"
+import Plotly from "plotly.js/dist/plotly";  // Add this import for resizing
 
 function LineChart({ x, y, ySuffix = "", yRange, percentage = false }) {
   const plotRef = useRef(null)
 
   useEffect(() => {
     const handleResize = () => {
-      if (plotRef.current) {
-        plotRef.current.resizeHandler()
+      if (plotRef.current && plotRef.current.el) {
+        Plotly.Plots.resize(plotRef.current.el);  // Correct resize method
       }
     }
-
     window.addEventListener("resize", handleResize)
+    handleResize();  // Initial resize on mount
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 

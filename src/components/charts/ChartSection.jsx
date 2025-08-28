@@ -1,5 +1,13 @@
+// src/components/charts/ChartSection.jsx
+import dynamic from 'next/dynamic' // 1. Import dynamic from next
 import ChartCard from "./ChartCard"
-import LineChart from "./LineChart"
+
+// 2. Dynamically import LineChart with SSR turned off
+const LineChart = dynamic(() => import("./LineChart"), {
+  ssr: false,
+  loading: () => <p className="text-center p-4">Loading chart...</p> // Optional: Show a loading message
+})
+
 
 function ChartSection({ data }) {
   return (
@@ -26,7 +34,7 @@ function ChartSection({ data }) {
         />
       </ChartCard>
     </div>
-  )
+  );
 }
 
 export default ChartSection
