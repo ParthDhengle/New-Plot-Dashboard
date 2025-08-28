@@ -1,81 +1,71 @@
-// src/components/charts/LineChart.jsx
-import Plot from 'react-plotly.js';
-import { useEffect, useRef, useState } from 'react';
+"use client"
 
-export function LineChart({ x, y, ySuffix = '', yRange, percentage = false }) {
-  const plotRef = useRef();
-  const [dimensions, setDimensions] = useState({ width: 400, height: 260 });
+// src/components/charts/LineChart.jsx
+import { useEffect, useRef } from "react"
+import Plot from "react-plotly.js"
+
+function LineChart({ x, y, ySuffix = "", yRange, percentage = false }) {
+  const plotRef = useRef(null)
 
   useEffect(() => {
-    const updateSize = () => {
+    const handleResize = () => {
       if (plotRef.current) {
-        const container = plotRef.current.parentElement;
-        const width = container?.offsetWidth || 400;
-        setDimensions({ width, height: 260 });
+        plotRef.current.resizeHandler()
       }
-    };
-
-    updateSize();
-    window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
-
-  const data = [
-    {
-      x: x,
-      y: y,
-      type: 'scatter',
-      mode: 'lines',
-      line: {
-        color: '#3B82F6',
-        width: 2
-      },
-      hovertemplate: `%{y}${ySuffix}<extra></extra>`
     }
-  ];
 
-  const layout = {
-    width: dimensions.width,
-    height: dimensions.height,
-    margin: { l: 50, r: 20, t: 20, b: 40 },
-    plot_bgcolor: 'rgba(0,0,0,0)',
-    paper_bgcolor: 'rgba(0,0,0,0)',
-    xaxis: {
-      gridcolor: '#E5E7EB',
-      gridwidth: 1,
-      showline: true,
-      linecolor: '#D1D5DB',
-      linewidth: 1,
-      tickfont: { size: 11, color: '#6B7280' },
-      title: { text: 'Time (s)', font: { size: 12, color: '#374151' } }
-    },
-    yaxis: {
-      gridcolor: '#E5E7EB',
-      gridwidth: 1,
-      showline: true,
-      linecolor: '#D1D5DB',
-      linewidth: 1,
-      tickfont: { size: 11, color: '#6B7280' },
-      ticksuffix: ySuffix,
-      range: yRange
-    },
-    showlegend: false,
-    hovermode: 'x'
-  };
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
-  const config = {
-    displayModeBar: false,
-    responsive: true
-  };
+  const tickformat = percentage ? ".0%" : ".0f"
 
   return (
-    <div ref={plotRef} className="w-full">
+    <div style={{ width: "100%", height: "260px" }}>
       <Plot
-        data={data}
-        layout={layout}
-        config={config}
-        style={{ width: '100%', height: '260px' }}
+        ref={plotRef}
+        data={[
+          {
+            x: x,
+            y: y,
+            type: "scatter",
+            mode: "lines",
+            line: { color: "#3b82f6", width: 2 },
+            hovertemplate: `%{y}${ySuffix}<extra></extra>`,
+          },
+        ]}
+        layout={{
+          margin: { l: 40, r: 20, t: 20, b: 40 },
+          paper_bgcolor: "transparent",
+          plot_bgcolor: "transparent",
+          xaxis: {
+            showgrid: true,
+            gridcolor: "#f3f4f6",
+            showline: false,
+            zeroline: false,
+            title: { text: "" },
+          },
+          yaxis: {
+            showgrid: true,
+            gridcolor: "#f3f4f6",
+            showline: false,
+            zeroline: false,
+            title: { text: "" },
+            range: yRange,
+            tickformat: percentage ? ".0f" : undefined,
+            ticksuffix: ySuffix,
+          },
+          font: { family: "Inter, system-ui, sans-serif", size: 12 },
+          hovermode: "x unified",
+        }}
+        config={{
+          displayModeBar: false,
+          responsive: true,
+        }}
+        style={{ width: "100%", height: "100%" }}
       />
     </div>
-  );
+  )
 }
+
+export default LineChart

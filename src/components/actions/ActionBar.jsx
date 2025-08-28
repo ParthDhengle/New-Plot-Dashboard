@@ -1,39 +1,43 @@
-// src/components/actions/ActionBar.jsx
-import { Button } from '@/components/ui/button';
-import { Download, FileDown, RefreshCw } from 'lucide-react';
+"use client"
+import { Button } from "../ui/button"
+import { Download, FileDown, RefreshCw } from "lucide-react"
 
-export function ActionBar({ onDownloadCSV, onExportPDF, onRerun, loading }) {
+function ActionBar({ onDownloadCSV, onExportPDF, onRerun, loading }) {
   return (
     <div className="flex flex-wrap gap-3 justify-center sm:justify-start">
       <Button
         variant="outline"
         onClick={onDownloadCSV}
-        className="rounded-xl"
+        disabled={loading}
         aria-label="Download simulation data as CSV"
+        className="flex items-center gap-2 bg-transparent"
       >
-        <Download className="w-4 h-4 mr-2" />
+        <Download className="h-4 w-4" />
         Download CSV
       </Button>
-      
+
       <Button
         variant="outline"
         onClick={onExportPDF}
-        className="rounded-xl"
+        disabled={loading}
         aria-label="Export dashboard as PDF"
+        className="flex items-center gap-2 bg-transparent"
       >
-        <FileDown className="w-4 h-4 mr-2" />
+        <FileDown className="h-4 w-4" />
         Export PDF
       </Button>
-      
+
       <Button
         onClick={onRerun}
         disabled={loading}
-        className="rounded-xl"
         aria-label="Re-run battery simulation"
+        className="flex items-center gap-2"
       >
-        <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+        <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
         Re-run Simulation
       </Button>
     </div>
-  );
+  )
 }
+
+export default ActionBar

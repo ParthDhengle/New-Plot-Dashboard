@@ -1,7 +1,7 @@
 // src/components/tabs/MetricTabs.jsx
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
-import { ChartSection } from '../charts/ChartSection';
+import ChartSection from '../charts/ChartSection';
 
 export function MetricTabs({ data }) {
   return (

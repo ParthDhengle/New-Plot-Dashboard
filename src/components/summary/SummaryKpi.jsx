@@ -1,17 +1,11 @@
-export function SummaryKpi({ label, value, subvalue }) {
+function SummaryKpi({ label, value, subvalue }) {
   return (
-    <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 flex flex-col justify-center items-start h-full">
-      <div className="text-sm font-medium text-gray-600 mb-1">
-        {label}
-      </div>
-      <div className="text-2xl font-bold text-gray-900 mb-1">
-        {value}
-      </div>
-      {subvalue && (
-        <div className="text-sm text-gray-500">
-          {subvalue}
-        </div>
-      )}
+    <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+      <div className="text-sm font-medium text-gray-500 mb-1">{label}</div>
+      <div className="text-2xl font-bold text-gray-900">{value}</div>
+      {subvalue && <div className="text-sm text-gray-600 mt-1">{subvalue}</div>}
     </div>
-  );
+  )
 }
+
+export default SummaryKpi

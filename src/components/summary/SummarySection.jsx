@@ -1,18 +1,17 @@
-// src/components/summary/SummarySection.jsx
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { SummaryGrid } from './SummaryGrid';
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
+import SummaryGrid from "./SummaryGrid"
 
-export function SummarySection({ kpis }) {
+function SummarySection({ kpis }) {
   return (
-    <Card className="rounded-2xl shadow-sm border border-gray-200">
+    <Card className="rounded-2xl shadow-sm border-gray-200">
       <CardHeader>
-        <CardTitle className="text-xl font-semibold text-gray-900">
-          Simulation Summary
-        </CardTitle>
+        <CardTitle className="text-xl font-semibold">Simulation Summary</CardTitle>
       </CardHeader>
       <CardContent>
         <SummaryGrid kpis={kpis} />
       </CardContent>
     </Card>
-  );
+  )
 }
+
+export default SummarySection
